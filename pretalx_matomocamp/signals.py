@@ -12,7 +12,7 @@ class MatomoVideoProvider(BaseRecordingProvider):
     """
 
     def get_recording(self, submission: Submission):
-        is_workshop = submission.submission_type.name == "Workshops"
+        is_workshop = submission.submission_type.name == "Workshop"
         button_title = "View Workshop" if is_workshop else "View Livestream"
         livestream_url = f"https://live.matomocamp.org/" + submission.code
         chat_url = livestream_url + "/chat_room"
