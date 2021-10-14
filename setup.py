@@ -1,7 +1,7 @@
 import os
 from distutils.command.build import build
 
-from django.core import management
+# from django.core import management
 from setuptools import find_packages, setup
 
 try:
@@ -13,13 +13,13 @@ except FileNotFoundError:
     long_description = ""
 
 
-class CustomBuild(build):
-    def run(self):
-        management.call_command("compilemessages", verbosity=1)
-        build.run(self)
+# class CustomBuild(build):
+#     def run(self):
+#         management.call_command("compilemessages", verbosity=1)
+#         build.run(self)
 
 
-cmdclass = {"build": CustomBuild}
+# cmdclass = {"build": CustomBuild}
 
 
 setup(
@@ -34,7 +34,7 @@ setup(
     install_requires=[],
     packages=find_packages(exclude=["tests", "tests.*"]),
     include_package_data=True,
-    cmdclass=cmdclass,
+    # cmdclass=cmdclass,
     entry_points="""
 [pretalx.plugin]
 pretalx_matomocamp=pretalx_matomocamp:PretalxPluginMeta
