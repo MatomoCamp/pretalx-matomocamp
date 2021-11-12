@@ -21,7 +21,7 @@ class MatomoVideoProvider(BaseRecordingProvider):
         return {
             "iframe": f"""
 <style>
-.ratio {{ margin-top:1rem;border: none}}
+.ratio {{ margin-top:1rem}}
 /* based on https://github.com/twbs/bootstrap/blob/f61a0218b36d915db80dc23635a9078e98e2e3e0/scss/helpers/_ratio.scss */
 .ratio {{
     position: relative;
@@ -39,6 +39,7 @@ class MatomoVideoProvider(BaseRecordingProvider):
     left: 0;
     width: 100%;
     height: 100%;
+    border: none
 }}
 </style>
 <div>
