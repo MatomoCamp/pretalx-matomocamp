@@ -12,14 +12,16 @@ class MatomoVideoProvider(BaseRecordingProvider):
     """
 
     def get_recording(self, submission: Submission):
+        is_past_submission = submission.event == 0
         is_workshop = submission.submission_type.id == 2
         button_title = "View Workshop" if is_workshop else "View Livestream"
         livestream_url = f"https://live.matomocamp.org/" + submission.code
         chat_url = livestream_url + "/chat_room"
         recording_url = livestream_url + "/recording"
         recording_embed_url = livestream_url + "/recording_embed"
-        return {
-            "iframe": f"""
+        if is_past_submission:
+            return {
+                "iframe": f"""
 <style>
 .ratio {{ margin-top:1rem}}
 /* based on https://github.com/twbs/bootstrap/blob/f61a0218b36d915db80dc23635a9078e98e2e3e0/scss/helpers/_ratio.scss */
@@ -52,8 +54,17 @@ class MatomoVideoProvider(BaseRecordingProvider):
             sandbox="allow-same-origin allow-scripts allow-popups"
     ></iframe>    
 </div>""",
-            "csp_header": "https://video.matomocamp.org/ https://live.matomocamp.org/"
-        }
+                "csp_header": "https://video.matomocamp.org/ https://live.matomocamp.org/"
+            }
+        else:
+            return {
+                "iframe": f"""
+            <div>
+            <a href='{livestream_url}' class='btn btn-primary'>{button_title}</a>
+            <a href="{chat_url}" class="btn btn-primary">Join Chatroom</a>
+            </div>
+            """,
+            }
 
 
 @receiver(register_recording_provider)
